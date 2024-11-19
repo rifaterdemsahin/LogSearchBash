@@ -9,6 +9,7 @@ logFilePaths=(
 )
 
 # Function to extract and display metadata entries with log file names and dates
+# mymetadata is any unique text that is log line based unique
 extract_metadata() {
     local logFilePath=$1
     local oneDayAgo=$(date -d '1 day ago' +%s)
@@ -18,8 +19,8 @@ extract_metadata() {
             logDateEpoch=$(date -d "$logDate" +%s)
             if (( logDateEpoch >= oneDayAgo )); then
                 if [[ $line =~ my=([^/]+) ]]; then
-                    servicemonitor="${BASH_REMATCH[1]}"
-                    echo "logfile=$(basename "$logFilePath") logdate=$logDate servicemonitor=$servicemonitor"
+                    mymetadata="${BASH_REMATCH[1]}"
+                    echo "logfile=$(basename "$logFilePath") logdate=$logDate mymetadata=$mymetadata"
                 fi
             fi
         fi
@@ -29,5 +30,5 @@ extract_metadata() {
 # Display results for each log file
 for logFilePath in "${logFilePaths[@]}"; do
     echo "Results for $(basename "$logFilePath"):"
-    extract_servicemonitor "$logFilePath"
+    extract_metadata "$logFilePath"
 done
