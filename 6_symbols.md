@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Define an array of log file paths
+# Define an array of log file paths for WSL
 logFilePaths=(
     "/mnt/c/Users/rifat.sahin/Downloads/main.log"
     "/mnt/c/Users/rifat.sahin/Downloads/cluster1.log"
